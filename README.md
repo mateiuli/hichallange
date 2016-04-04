@@ -23,11 +23,10 @@ Cele doua scripturi sunt:
 - webserver.py
 - WikiEvents.py
 
-
 <h3>webserver.py</h3>
 Folosind flask se creaza un server web ce asculta pe portul 5000
 si asteapta cereri care contin un query string de forma: <br />
-<i>http://localhost:5000/?day=april%204&year=1964&category=events</i>
+<i>http://localhost:5000/?day=april 4&year=1964&category=events</i>
 
 Poate sa lipseasca oricare dintre variabilele: day, year, category, cautarea
 facandu-se astfel doar dupa valorile specificate.
@@ -37,3 +36,11 @@ se poate face astfel: <br />
 <i>http://localhost:5000/?category=events&keyword=germany&year=1945</i>
 
 Cele patru variabile: day, category, year si keyword pot fi combinate in orice mod.
+
+<h3>WikiEvents.py</h3>
+Folosind pachetul 'wikipedia' extrag din fiecare pagina cu titlu de forma 'month_day'
+continutul acesteia sub forma plain text si cu ajutorul expresiilor regulate, extrag
+linie cu linie informatiile si le salvez in baza de date.
+
+Parser-ul efectiv l-am implementat separat: PageParser.py.
+

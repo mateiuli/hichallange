@@ -13,7 +13,7 @@ class WikiEvents(object):
 		"""
 
 		# Wikipedia page parser
-		self.parser = PageParser(self.__save)
+		self.parser = PageParser(self.save)
 		# Database client
 		self.client = MongoClient('smallville', 27017)
 		# Database object
@@ -27,9 +27,8 @@ class WikiEvents(object):
 		# Change locale to english US
 		locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-	def __save(self, **kwargs):
+	def save(self, **kwargs):
 		self.col_events.insert_one(kwargs)
-		print " ...... parsed as ", kwargs['day']
 
 	def start(self):
 		# Iterate over all days of a leap year (2016 is one)
