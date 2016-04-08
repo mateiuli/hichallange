@@ -44,3 +44,14 @@ linie cu linie informatiile si le salvez in baza de date.
 
 Parser-ul efectiv l-am implementat separat: PageParser.py.
 
+<h3>Cum se ruleaza</h3>
+Scripturile pot fi rulate atat pe localhost cat si in containere docker diferite.
+Serverul cu baza de date intr-un container, iar celelalte doua scripturi in alt
+container.
+
+Legatura dintre cele doua containere (adresa serverului cu baza de date) se face automat prin variabila de mediu: DB_PORT_27017_TCP_ADDR. By default, adresa
+serverului DB este luata din aceasta variabila de mediue. Ea poate fi suprascrisa in cazul in care se doreste rularea pe localhost in modul urmator:
+
+<i>python WikiEvents.py --dbserver &lt;mongo_db_server_address&gt;</i>
+
+<i>python webserver.py --dbserver &lt;mongo_db_server_address&gt;</i>

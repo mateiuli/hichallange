@@ -1,15 +1,21 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from bson.json_util import dumps
+import os, sys
 
 app = Flask(__name__)
 
-# Database client
-mongo_client = MongoClient('smallville', 27017)
-# Database object
-mongo_db_wiki = mongo_client.db_wiki
-# Events collection
-mongo_db_col_events = mongo_client.db_wiki.events
+# Collection
+mongo_db_col_events = None
+
+def init_db():
+	global mongo_db_col_events
+	# Database client
+	mongo_client = MongoClient(os.environ['DB_PORT_27017_TCP_ADDR'], 27017)
+	# Database object
+	mongo_db_wiki = mongo_client.db_wiki
+	# Events collection
+	mongo_db_col_events = mongo_client.db_wiki.events
 
 @app.route("/", methods=['GET'])
 def index():
@@ -51,5 +57,11 @@ def index():
 
 	return dumps({"results" : res})
 
-if __name__ == "__main__":	
-	app.run()
+if __name__ == "__main__":
+	if len(sys.argv) > 2:
+		if sys.argv[1] == "--dbserver":
+			os.environ['DB_PORT_27017_TCP_ADDR'] = sys.argv[2]
+	
+	# Connect to database, get collection handler
+	init_db()
+	app.run(host='0.0.0.0')
