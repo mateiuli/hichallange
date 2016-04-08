@@ -1,3 +1,3 @@
 #!/bin/sh
-python -u FetchWiki.py
-python -u WebServer.py
+python -u FetchWiki.py $@
+python -u WebServer.py $@
