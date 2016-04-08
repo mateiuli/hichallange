@@ -51,15 +51,19 @@ serverului DB este luata din aceasta variabila de mediu. Ea poate fi suprascrisa
 
 <h2>Rulare local (fara docker)</h2>
 Mai intai trebuie parsate paginile de pe wikipedia pentru popularea bazei de date. Acest lucru se poate face astfel: <br />
-<b>python FetchWiki.py --dbserver &lt;mongo_db_server_address&gt;</b>
-<br />
-<i> exemplu: python FetchWiki.py --dbserver localhost</i>
+<b>python -u FetchWiki.py --dbserver &lt;mongo_db_server_address&gt;</b>
 
-Apoi e poate porni serverul web astfel: <br />
-<b>python WebServer.py --dbserver &lt;mongo_db_server_address&gt;</b>
+<i> exemplu: python -u FetchWiki.py --dbserver localhost</i>
+
+Apoi se poate porni serverul web astfel: <br />
+<b>python -u WebServer.py --dbserver &lt;mongo_db_server_address&gt;</b>
 
 <h2>Rulare in containere docker (docker-compose)</h2>
+
 <b>docker-compose build</b>
+
 <b>docker-compose up</b>
-<br />
+
 Intr-un container ruleaza serverul cu baza de date, iar in celalalt este rulat scriptul 'run_all.sh' care mai intai executa 'FetchWiki.py' iar apoi porneste serverul web 'WebServer.py'.
+
+Nu exista posibilitatea de a se face refresh la date intr-un interval de doua ore. De fiecare data se parseaza si se salveaza informatiile in db. 
