@@ -29,14 +29,11 @@ def index():
 	qdict = {}
 
 	if category:
-		qdict['category'] = category.strip().lower()
-	
+		qdict['category'] = category.strip().lower()	
 	if year:
-		qdict['year'] = year.strip().upper()
-	
+		qdict['year'] = year.strip().upper()	
 	if day:
 		qdict['day'] = day.strip().lower().capitalize().replace("_", " ")
-
 	if keyword:
 		qdict['$text'] = {"$search" : keyword.strip()}
 

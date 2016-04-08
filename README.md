@@ -20,12 +20,11 @@ Deoarece nu se fac inserari/modificari in continuu asupra bazei de date, ci
 doar cautari, am ales sa creez un index pentru campurile: category, day, year.
 
 Cele doua scripturi sunt: 
-- webserver.py
-- WikiEvents.py
+- WebServer.py
+- FetchWiki.py
 
-<h3>webserver.py</h3>
-Folosind flask se creaza un server web ce asculta pe portul 5000
-si asteapta cereri care contin un query string de forma: <br />
+<h2>WebServer.py</h2>
+Folosind flask se creaza un server web ce asculta pe portul 5000 si asteapta cereri care contin un query string de forma: <br />
 <i>http://localhost:5000/?day=april 4&year=1964&category=events</i>
 
 Poate sa lipseasca oricare dintre variabilele: day, year, category, cautarea
@@ -37,21 +36,30 @@ se poate face astfel: <br />
 
 Cele patru variabile: day, category, year si keyword pot fi combinate in orice mod.
 
-<h3>WikiEvents.py</h3>
-Folosind pachetul 'wikipedia' extrag din fiecare pagina cu titlu de forma 'month_day'
-continutul acesteia sub forma plain text si cu ajutorul expresiilor regulate, extrag
-linie cu linie informatiile si le salvez in baza de date.
+<h2>FetchWiki.py</h2>
+Folosind pachetul 'wikipedia' extrag din fiecare pagina cu titlu de forma 'month_day' continutul acesteia sub forma plain text si cu ajutorul expresiilor regulate, extrag linie cu linie informatiile si le salvez in baza de date.
 
 Parser-ul efectiv l-am implementat separat: PageParser.py.
 
-<h3>Cum se ruleaza</h3>
-Scripturile pot fi rulate atat pe localhost cat si in containere docker diferite.
-Serverul cu baza de date intr-un container, iar celelalte doua scripturi in alt
+<h1>Cum se ruleaza</h1>
+Scripturile pot fi rulate atat pe localhost cat si in containere docker diferite,
+serverul cu baza de date intr-un container, iar celelalte doua scripturi in alt
 container.
 
 Legatura dintre cele doua containere (adresa serverului cu baza de date) se face automat prin variabila de mediu: DB_PORT_27017_TCP_ADDR. By default, adresa
-serverului DB este luata din aceasta variabila de mediue. Ea poate fi suprascrisa in cazul in care se doreste rularea pe localhost in modul urmator:
+serverului DB este luata din aceasta variabila de mediu. Ea poate fi suprascrisa in cazul in care se doreste rularea pe localhost.
 
-<i>python WikiEvents.py --dbserver &lt;mongo_db_server_address&gt;</i>
+<h2>Rulare local (fara docker)</h2>
+Mai intai trebuie parsate paginile de pe wikipedia pentru popularea bazei de date. Acest lucru se poate face astfel: <br />
+<b>python FetchWiki.py --dbserver &lt;mongo_db_server_address&gt;</b>
+<br />
+<i> exemplu: python FetchWiki.py --dbserver localhost</i>
 
-<i>python webserver.py --dbserver &lt;mongo_db_server_address&gt;</i>
+Apoi e poate porni serverul web astfel: <br />
+<b>python WebServer.py --dbserver &lt;mongo_db_server_address&gt;</b>
+
+<h2>Rulare in containere docker (docker-compose)</h2>
+<b>docker-compose build</b>
+<b>docker-compose up</b>
+<br />
+Intr-un container ruleaza serverul cu baza de date, iar in celalalt este rulat scriptul 'run_all.sh' care mai intai executa 'FetchWiki.py' iar apoi porneste serverul web 'WebServer.py'.

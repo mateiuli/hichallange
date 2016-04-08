@@ -1,6 +1,6 @@
 web:
   build: .
-  command: /bin/sh run.sh
+  command: /bin/sh run_all.sh
   ports:
     - "5000:5000"
   volumes:
@@ -9,3 +9,4 @@ web:
     - db
 db:
   image: mongo:3.2
+ 
