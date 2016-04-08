@@ -55,9 +55,8 @@ def index():
 	return dumps({"results" : res})
 
 if __name__ == "__main__":
-	if len(sys.argv) > 2:
-		if sys.argv[1] == "--dbserver":
-			os.environ['DB_PORT_27017_TCP_ADDR'] = sys.argv[2]
+	if len(sys.argv) > 2 and sys.argv[1] == "--dbserver":
+		os.environ['DB_PORT_27017_TCP_ADDR'] = sys.argv[2]
 	
 	# Connect to database, get collection handler
 	init_db()
