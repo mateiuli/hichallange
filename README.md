@@ -52,10 +52,12 @@ serverului DB este luata din aceasta variabila de mediu. Ea poate fi suprascrisa
 <h2>Rulare local (fara docker)</h2>
 Mai intai trebuie parsate paginile de pe wikipedia pentru popularea bazei de date. Acest lucru se poate face astfel: <br />
 <b>python -u FetchWiki.py --dbserver &lt;mongo_db_server_address&gt;</b>
-<i> exemplu: python -u FetchWiki.py --dbserver localhost</i>
+
+<i>exemplu: python -u FetchWiki.py --dbserver localhost</i>
 
 Apoi se poate porni serverul web astfel: <br />
 <b>python -u WebServer.py --dbserver &lt;mongo_db_server_address&gt;</b>
+
 <i>exemplu: python -u WebServer.py --dbserver localhost</i>
 
 <h2>Rulare in containere docker (docker-compose)</h2>
