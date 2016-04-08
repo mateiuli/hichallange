@@ -37,14 +37,12 @@ se poate face astfel: <br />
 Cele patru variabile: day, category, year si keyword pot fi combinate in orice mod.
 
 <h2>FetchWiki.py</h2>
-Folosind pachetul 'wikipedia' extrag din fiecare pagina cu titlu de forma 'month_day' continutul acesteia sub forma plain text si cu ajutorul expresiilor regulate, extrag linie cu linie informatiile si le salvez in baza de date.
+Folosind pachetul 'wikipedia' extrag din fiecare pagina cu titlu de forma 'month_day' continutul acesteia sub forma plain text si cu ajutorul expresiilor regulate extrag linie cu linie informatiile si le salvez in baza de date.
 
 Parser-ul efectiv l-am implementat separat: PageParser.py.
 
 <h1>Cum se ruleaza</h1>
-Scripturile pot fi rulate atat pe localhost cat si in containere docker diferite,
-serverul cu baza de date intr-un container, iar celelalte doua scripturi in alt
-container.
+Scripturile pot fi rulate atat pe localhost cat si in containere docker diferite (serverul cu baza de date intr-un container, iar celelalte doua scripturi in alt container).
 
 Legatura dintre cele doua containere (adresa serverului cu baza de date) se face automat prin variabila de mediu: DB_PORT_27017_TCP_ADDR. By default, adresa
 serverului DB este luata din aceasta variabila de mediu. Ea poate fi suprascrisa in cazul in care se doreste rularea pe localhost.
@@ -68,4 +66,4 @@ Apoi se poate porni serverul web astfel: <br />
 
 Intr-un container ruleaza serverul cu baza de date, iar in celalalt este rulat scriptul 'run_all.sh' care mai intai executa 'FetchWiki.py' iar apoi porneste serverul web 'WebServer.py'.
 
-Nu exista posibilitatea de a se face refresh la date intr-un interval de doua ore. De fiecare data se parseaza si se salveaza informatiile in db. 
+Nu am implementat posibilitatea de a se face refresh la date intr-un interval de doua ore. De fiecare data se parseaza si se salveaza informatiile in db.
